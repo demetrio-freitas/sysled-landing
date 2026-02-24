@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import SharedFooter from "./SharedFooter";
 
 // ─── Paleta ───────────────────────────────────────────────────────────────────
@@ -787,11 +787,11 @@ function ProfileScreen() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 2 }}>
           {gridPosts.map((post) => (
             <div key={post.id} style={{ aspectRatio: "1/1", background: post.bgColor || C.navy, position: "relative", overflow: "hidden", cursor: "pointer" }}>
-              <div style={{ width: "100%", height: "100%", transform: "scale(0.75)", transformOrigin: "top left" }}>
+              <div style={{ position: "absolute", top: 0, left: 0, width: 378, height: 378, transformOrigin: "top left", transform: "scale(0.33)" }}>
                 {post.type === "carrossel" ? post.slides[0].content : post.content}
               </div>
               {post.type === "carrossel" && (
-                <div style={{ position: "absolute", top: 6, right: 6, fontSize: 12 }}>⧉</div>
+                <div style={{ position: "absolute", top: 6, right: 6, fontSize: 12, color: "rgba(255,255,255,0.7)" }}>⧉</div>
               )}
             </div>
           ))}
@@ -867,22 +867,29 @@ function FeedScreen() {
   );
 }
 
-// ─── Painel de Estratégia (Sidebar) ──────────────────────────────────────────
+// ─── Painel de Estratégia (Modal) ────────────────────────────────────────────
 function StrategyPanel({ onClose }) {
   return (
     <div style={{
-      position: "absolute", inset: 0, zIndex: 50, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)",
-      display: "flex", alignItems: "flex-end",
+      position: "fixed", inset: 0, zIndex: 1000, background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      padding: 24,
     }} onClick={onClose}>
-      <div style={{ width: "100%", maxHeight: "85%", background: C.navy, borderRadius: "20px 20px 0 0", overflow: "hidden" }}
+      <div style={{
+        width: "100%", maxWidth: 640, maxHeight: "90vh", background: C.navy, borderRadius: 24, overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 32px 80px rgba(0,0,0,0.5)",
+      }}
         onClick={e => e.stopPropagation()}
       >
-        <div style={{ padding: "12px 0", display: "flex", justifyContent: "center" }}>
-          <div style={{ width: 40, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.2)" }} />
+        <div style={{ padding: "20px 24px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div>
+            <h2 style={{ fontFamily: "'Anybody', sans-serif", fontWeight: 800, fontSize: 22, color: "#fff", margin: 0 }}>Estratégia da Série</h2>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.muted, margin: "4px 0 0" }}>Calendário editorial e táticas por fase</p>
+          </div>
+          <button onClick={onClose} style={{ background: "rgba(255,255,255,0.06)", border: "none", borderRadius: "50%", width: 36, height: 36, cursor: "pointer", fontSize: 18, color: C.muted, display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
         </div>
-        <div style={{ overflowY: "auto", maxHeight: "calc(85vh - 40px)", padding: "0 20px 40px" }}>
-          <h2 style={{ fontFamily: "'Anybody', sans-serif", fontWeight: 800, fontSize: 20, color: "#fff", marginBottom: 6 }}>Estratégia da Série</h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.muted, marginBottom: 20 }}>Calendário editorial e táticas por fase</p>
+        <div style={{ overflowY: "auto", maxHeight: "calc(90vh - 80px)", padding: "20px 24px 40px" }}>
 
           {[
             {
@@ -936,30 +943,31 @@ export default function SYSLEDInstagramSim() {
   const [showStrategy, setShowStrategy] = useState(false);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#E8ECF1", display: "flex", justifyContent: "center", alignItems: "flex-start", padding: "32px 16px", fontFamily: "'DM Sans', sans-serif" }}>
-      {/* Container principal */}
-      <div style={{ display: "flex", gap: 24, alignItems: "flex-start", maxWidth: 1100, width: "100%" }}>
+    <div style={{ minHeight: "100vh", background: C.navy, fontFamily: "'DM Sans', sans-serif", display: "flex", flexDirection: "column" }}>
 
-        {/* Painel de info à esquerda */}
+      {/* Page Header */}
+      <div style={{ padding: "48px 24px 8px", textAlign: "center" }}>
+        <a href="/" style={{ display: "inline-flex", alignItems: "baseline", gap: 8, textDecoration: "none" }}>
+          <span style={{ fontFamily: "'Anybody', sans-serif", fontWeight: 900, fontSize: 24, color: "#fff" }}>SYSLED</span>
+          <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.blueLight, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Industrial OS</span>
+        </a>
+        <h1 style={{ fontFamily: "'Anybody', sans-serif", fontWeight: 900, fontSize: 32, color: "#fff", margin: "16px 0 8px", letterSpacing: "-0.02em" }}>
+          Simulação <span style={{ color: C.orange }}>Instagram</span>
+        </h1>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: C.muted, maxWidth: 500, margin: "0 auto", lineHeight: 1.5 }}>
+          Série "O ERP Morreu" — Calendário editorial para Smart Factory 2026
+        </p>
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: 1, display: "flex", justifyContent: "center", gap: 24, padding: "32px 24px 48px", maxWidth: 1200, margin: "0 auto", width: "100%", alignItems: "flex-start", flexWrap: "wrap" }}>
+
+        {/* Left Sidebar */}
         <div style={{ width: 280, flexShrink: 0, display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Logo SYSLED */}
-          <div style={{ padding: "20px", background: C.navy, borderRadius: 16 }}>
-            <a href="/" style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6, textDecoration: "none", cursor: "pointer" }}>
-              <span style={{ fontFamily: "'Anybody', sans-serif", fontWeight: 900, fontSize: 20, color: "#fff" }}>SYSLED</span>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: C.blueLight, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Industrial OS</span>
-            </a>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.muted, lineHeight: 1.5 }}>
-              Simulação de feed Instagram — Série "O ERP Morreu"
-            </p>
-            <div style={{ marginTop: 12, padding: "8px 12px", borderRadius: 8, background: "rgba(232,113,43,0.1)", border: `1px solid ${C.orange}33` }}>
-              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, color: C.orange, marginBottom: 4, letterSpacing: "0.08em", textTransform: "uppercase" }}>Smart Factory · Mar 2026</div>
-              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.muted }}>9 posts · 3 fases · LinkedIn + Instagram</div>
-            </div>
-          </div>
 
-          {/* Calendário visual */}
-          <div style={{ padding: "16px", background: "#fff", borderRadius: 16, border: "1px solid #DBDBDB" }}>
-            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: C.igText, marginBottom: 12 }}>Calendário Editorial</div>
+          {/* Calendar */}
+          <div style={{ padding: "20px", background: "rgba(255,255,255,0.03)", borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)" }}>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: "#fff", marginBottom: 14 }}>Calendário Editorial</div>
             {[
               { phase: "Antes", dates: "24 fev – 8 mar", color: C.blueLight, posts: 5 },
               { phase: "Durante", dates: "9–10 mar", color: C.red, posts: 3 },
@@ -968,8 +976,8 @@ export default function SYSLEDInstagramSim() {
               <div key={p.phase} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                 <div style={{ width: 4, height: 36, borderRadius: 2, background: p.color, flexShrink: 0 }} />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700, color: C.igText }}>{p.phase}</div>
-                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: C.igMuted }}>{p.dates} · {p.posts} posts</div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700, color: "#fff" }}>{p.phase}</div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: C.muted }}>{p.dates} · {p.posts} posts</div>
                 </div>
                 <div style={{ padding: "3px 8px", borderRadius: 20, background: `${p.color}18`, fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 700, color: p.color }}>
                   {p.posts}
@@ -978,43 +986,49 @@ export default function SYSLEDInstagramSim() {
             ))}
           </div>
 
-          {/* Botão estratégia */}
+          {/* Strategy Button */}
           <button onClick={() => setShowStrategy(true)} style={{
-            padding: "14px 16px", borderRadius: 12, background: C.navy, border: `1px solid rgba(232,113,43,0.3)`,
+            padding: "14px 16px", borderRadius: 12, background: "rgba(232,113,43,0.08)", border: "1px solid rgba(232,113,43,0.3)",
             color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, cursor: "pointer",
-            display: "flex", alignItems: "center", gap: 10, transition: "all 0.2s",
+            display: "flex", alignItems: "center", gap: 10, transition: "all 0.2s", width: "100%",
           }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = C.orange}
-            onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(232,113,43,0.3)"}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = C.orange; e.currentTarget.style.background = "rgba(232,113,43,0.15)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(232,113,43,0.3)"; e.currentTarget.style.background = "rgba(232,113,43,0.08)"; }}
           >
             <span style={{ fontSize: 20 }}>📋</span>
             Ver Estratégia Completa
           </button>
 
           {/* Hashtags */}
-          <div style={{ padding: "14px", background: "#fff", borderRadius: 16, border: "1px solid #DBDBDB" }}>
-            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 13, color: C.igText, marginBottom: 10 }}>Hashtags da Série</div>
+          <div style={{ padding: "16px", background: "rgba(255,255,255,0.03)", borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)" }}>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 13, color: "#fff", marginBottom: 10 }}>Hashtags da Série</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
               {["#ERPMorreu", "#SYSLED", "#IndustrialOS", "#Indústria40", "#SmartFactory", "#Fortaleza", "#GestãoIndustrial", "#Empreendedorismo"].map(h => (
-                <span key={h} style={{ padding: "4px 10px", borderRadius: 20, background: "#EEF2FF", fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.igBlue, fontWeight: 600, cursor: "pointer" }}>{h}</span>
+                <span key={h} style={{ padding: "4px 10px", borderRadius: 20, background: "rgba(74,159,229,0.1)", fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.blueLight, fontWeight: 600, cursor: "pointer" }}>{h}</span>
               ))}
             </div>
           </div>
+
+          {/* Event Card */}
+          <div style={{ padding: "16px", borderRadius: 16, background: "rgba(232,113,43,0.06)", border: "1px solid rgba(232,113,43,0.15)" }}>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, color: C.orange, marginBottom: 6, letterSpacing: "0.08em", textTransform: "uppercase" }}>Smart Factory · Mar 2026</div>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.muted, lineHeight: 1.5 }}>9 posts · 3 fases · LinkedIn + Instagram</div>
+          </div>
         </div>
 
-        {/* Simulador do smartphone */}
+        {/* Phone Simulator */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.igMuted, fontWeight: 600 }}>
+          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.muted, fontWeight: 600 }}>
             📱 Simulação de App Mobile
           </div>
 
-          {/* Moldura do iPhone */}
+          {/* iPhone Frame */}
           <div style={{
             width: 390, flexShrink: 0,
             background: "#1A1A1A",
             borderRadius: 48,
             padding: "14px 6px 8px",
-            boxShadow: "0 32px 80px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(255,255,255,0.08), inset 0 0 0 2px #2A2A2A",
+            boxShadow: "0 32px 80px rgba(0,0,0,0.5), 0 0 0 1.5px rgba(255,255,255,0.06), inset 0 0 0 2px #2A2A2A",
           }}>
             {/* Notch */}
             <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
@@ -1024,7 +1038,7 @@ export default function SYSLEDInstagramSim() {
               </div>
             </div>
 
-            {/* Tela */}
+            {/* Screen */}
             <div style={{ borderRadius: 36, overflow: "hidden", background: C.igBg, height: 750, display: "flex", flexDirection: "column", position: "relative" }}>
               {/* Status bar */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 18px 2px", background: "#fff" }}>
@@ -1036,7 +1050,6 @@ export default function SYSLEDInstagramSim() {
                 </div>
               </div>
 
-              {/* Conteúdo da tela */}
               {tab === "feed" && <FeedScreen />}
               {tab === "explore" && <ExploreScreen />}
               {tab === "profile" && <ProfileScreen />}
@@ -1048,11 +1061,7 @@ export default function SYSLEDInstagramSim() {
                 </div>
               )}
 
-              {/* Nav bar */}
               <IgNavBar tab={tab} setTab={setTab} />
-
-              {/* Painel de estratégia */}
-              {showStrategy && <StrategyPanel onClose={() => setShowStrategy(false)} />}
             </div>
 
             {/* Home indicator */}
@@ -1061,7 +1070,7 @@ export default function SYSLEDInstagramSim() {
             </div>
           </div>
 
-          {/* Legenda */}
+          {/* Legend */}
           <div style={{ display: "flex", gap: 16 }}>
             {[
               { icon: "🏠", label: "Feed" },
@@ -1070,32 +1079,35 @@ export default function SYSLEDInstagramSim() {
             ].map(n => (
               <div key={n.label} style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <span style={{ fontSize: 14 }}>{n.icon}</span>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.igMuted }}>{n.label}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.muted }}>{n.label}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Painel de estatísticas à direita */}
+        {/* Right Sidebar */}
         <div style={{ width: 250, flexShrink: 0, display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ padding: "16px", background: "#fff", borderRadius: 16, border: "1px solid #DBDBDB" }}>
-            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: C.igText, marginBottom: 14 }}>📊 Engajamento Projetado</div>
+
+          {/* Engagement Stats */}
+          <div style={{ padding: "20px", background: "rgba(255,255,255,0.03)", borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)" }}>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: "#fff", marginBottom: 14 }}>📊 Engajamento Projetado</div>
             {[
               { label: "Post mais forte", value: "Post D+1 (Recap)", detail: "Números reais + emoção" },
               { label: "Melhor formato", value: "Carrossel", detail: "3–5x mais alcance" },
               { label: "Pico de curtidas", value: "Pós-feira", detail: "1.247 curtidas simuladas" },
               { label: "Meta seguidores", value: "+50 na série", detail: "Via engajamento orgânico" },
             ].map((s) => (
-              <div key={s.label} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: "1px solid #EFEFEF" }}>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: C.igMuted, marginBottom: 2 }}>{s.label}</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700, color: C.igText }}>{s.value}</div>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: C.igMuted }}>{s.detail}</div>
+              <div key={s.label} style={{ marginBottom: 12, paddingBottom: 12, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: C.muted, marginBottom: 2 }}>{s.label}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700, color: "#fff" }}>{s.value}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, color: C.muted }}>{s.detail}</div>
               </div>
             ))}
           </div>
 
-          <div style={{ padding: "16px", background: "#fff", borderRadius: 16, border: "1px solid #DBDBDB" }}>
-            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: C.igText, marginBottom: 12 }}>💡 Dicas Táticas</div>
+          {/* Tips */}
+          <div style={{ padding: "20px", background: "rgba(255,255,255,0.03)", borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)" }}>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, color: "#fff", marginBottom: 12 }}>💡 Dicas Táticas</div>
             {[
               { tip: "Responda TODOS os comentários nas primeiras 2h", icon: "⚡" },
               { tip: "Link da calculadora no 1º comentário (não no corpo)", icon: "🔗" },
@@ -1105,12 +1117,13 @@ export default function SYSLEDInstagramSim() {
             ].map((t, i) => (
               <div key={i} style={{ display: "flex", gap: 8, marginBottom: 10, alignItems: "flex-start" }}>
                 <span style={{ fontSize: 14, flexShrink: 0 }}>{t.icon}</span>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.igMuted, lineHeight: 1.45 }}>{t.tip}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.muted, lineHeight: 1.45 }}>{t.tip}</span>
               </div>
             ))}
           </div>
 
-          <div style={{ padding: "14px 16px", borderRadius: 16, background: C.navy }}>
+          {/* Posting Times */}
+          <div style={{ padding: "16px 20px", borderRadius: 16, background: "rgba(232,113,43,0.06)", border: "1px solid rgba(232,113,43,0.15)" }}>
             <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 700, color: C.orange, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>Horários Ideais</div>
             <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.muted, lineHeight: 1.7 }}>
               <strong style={{ color: "#fff" }}>Instagram:</strong><br />
@@ -1122,7 +1135,10 @@ export default function SYSLEDInstagramSim() {
           </div>
         </div>
       </div>
+
       <SharedFooter />
+
+      {showStrategy && <StrategyPanel onClose={() => setShowStrategy(false)} />}
     </div>
   );
 }
