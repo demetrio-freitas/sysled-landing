@@ -45,6 +45,15 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 3px;
 }
 
+@media print {
+  body {
+    background: white !important;
+  }
+  #proposta-preview {
+    max-width: 100% !important;
+  }
+}
+
 @media (max-width: 640px) {
   table {
     font-size: 12px !important;
