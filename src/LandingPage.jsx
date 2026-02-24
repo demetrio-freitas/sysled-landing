@@ -787,6 +787,7 @@ function Footer() {
       <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 16 }}>
         <a href="/roi" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={e => e.target.style.color = COLORS.electricBlue} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.5)"}>ROI Investidores</a>
         <a href="/propostacomercial" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={e => e.target.style.color = COLORS.electricBlue} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.5)"}>Proposta Comercial</a>
+        <a href="/analisecompetitiva" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={e => e.target.style.color = COLORS.electricBlue} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.5)"}>Análise Competitiva</a>
       </div>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.3)", margin: 0 }}>
         SYSLED Tecnologia LTDA — Fortaleza, CE — © 2026
