@@ -18,6 +18,7 @@ const pages = [
   { href: "/analisecompetitiva", label: "Análise Competitiva" },
   { href: "/mapaobjecoes", label: "Mapa de Objeções" },
   { href: "/instagram", label: "Instagram Simulação" },
+  { href: "/linkedin", label: "LinkedIn Simulação" },
 ];
 
 export default function SharedFooter() {

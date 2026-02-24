@@ -4,6 +4,7 @@ import PropostaComercial from './PropostaComercial'
 import SYSLEDCompetitiveAnalysis from './AnaliseCompetitiva'
 import MapaObjecoes from './MapaObjecoes'
 import SYSLEDInstagramSim from './InstagramSimulacao'
+import SYSLEDLinkedInSim from './LinkedInSimulacao'
 
 function App() {
   const path = window.location.pathname
@@ -26,6 +27,10 @@ function App() {
 
   if (path === '/instagram') {
     return <SYSLEDInstagramSim />
+  }
+
+  if (path === '/linkedin') {
+    return <SYSLEDLinkedInSim />
   }
 
   return <SYSLEDLandingPage />
