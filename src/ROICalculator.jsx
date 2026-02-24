@@ -329,10 +329,10 @@ export default function SYSLEDInvestorCalculator() {
         flexWrap: "wrap", gap: 16,
       }}>
         <div>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4 }}>
+          <a href="/" style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4, textDecoration: "none", cursor: "pointer" }}>
             <span style={{ fontSize: 22, fontWeight: 900, color: C.white, letterSpacing: "-0.02em" }}>SYSLED</span>
             <span style={{ fontSize: 12, fontWeight: 600, color: C.blueLight, letterSpacing: "0.1em", textTransform: "uppercase" }}>Industrial OS</span>
-          </div>
+          </a>
           <h1 style={{ fontSize: 28, fontWeight: 800, color: C.white, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
             Calculadora de ROI — Investidores
           </h1>
