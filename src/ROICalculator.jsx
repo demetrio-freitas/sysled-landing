@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import SharedFooter from "./SharedFooter";
 
 // ─── Paleta SYSLED ───────────────────────────────────────────────────────────
 const C = {
@@ -613,6 +614,7 @@ export default function SYSLEDInvestorCalculator() {
           </div>
         </div>
       </div>
+      <SharedFooter />
     </div>
   );
 }

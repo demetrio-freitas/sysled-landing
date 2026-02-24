@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import SharedFooter from "./SharedFooter";
 
 // ─── Paleta SYSLED ───────────────────────────────────────────────────────────
 const C = {
@@ -820,20 +821,8 @@ export default function SYSLEDCompetitiveAnalysis() {
         {/* 6. Objeções */}
         <Objections />
 
-        {/* Footer */}
-        <AnimateIn>
-          <div style={{ textAlign: "center", padding: "20px", borderTop: `1px solid ${C.border}` }}>
-            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 8, marginBottom: 8 }}>
-              <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 900, fontSize: 18, color: C.white }}>SYSLED</span>
-              <span style={{ fontFamily: "'Syne', sans-serif", fontSize: 11, color: C.blueLight, fontWeight: 600, letterSpacing: "0.1em" }}>Industrial OS</span>
-            </div>
-            <p style={{ fontFamily: "'Syne', sans-serif", fontSize: 12, color: C.muted, margin: 0 }}>
-              Análise Competitiva v2.0 · Fev/2026 · Confidencial — Uso interno
-            </p>
-          </div>
-        </AnimateIn>
-
       </div>
+      <SharedFooter />
     </div>
   );
 }

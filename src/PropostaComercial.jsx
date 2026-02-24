@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import SharedFooter from "./SharedFooter";
 
 const C = {
   navy:      "#0A1628",
@@ -596,7 +597,7 @@ export default function PropostaComercial() {
           </div>
         )}
       </div>
-
+      <SharedFooter />
     </div>
   );
 }

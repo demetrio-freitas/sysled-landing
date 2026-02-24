@@ -2,6 +2,7 @@ import SYSLEDLandingPage from './LandingPage'
 import SYSLEDInvestorCalculator from './ROICalculator'
 import PropostaComercial from './PropostaComercial'
 import SYSLEDCompetitiveAnalysis from './AnaliseCompetitiva'
+import MapaObjecoes from './MapaObjecoes'
 
 function App() {
   const path = window.location.pathname
@@ -16,6 +17,10 @@ function App() {
 
   if (path === '/analisecompetitiva') {
     return <SYSLEDCompetitiveAnalysis />
+  }
+
+  if (path === '/mapaobjecoes') {
+    return <MapaObjecoes />
   }
 
   return <SYSLEDLandingPage />
