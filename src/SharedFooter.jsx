@@ -17,6 +17,7 @@ const pages = [
   { href: "/propostacomercial", label: "Proposta Comercial" },
   { href: "/analisecompetitiva", label: "Análise Competitiva" },
   { href: "/mapaobjecoes", label: "Mapa de Objeções" },
+  { href: "/instagram", label: "Instagram Simulação" },
 ];
 
 export default function SharedFooter() {

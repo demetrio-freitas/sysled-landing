@@ -3,6 +3,7 @@ import SYSLEDInvestorCalculator from './ROICalculator'
 import PropostaComercial from './PropostaComercial'
 import SYSLEDCompetitiveAnalysis from './AnaliseCompetitiva'
 import MapaObjecoes from './MapaObjecoes'
+import SYSLEDInstagramSim from './InstagramSimulacao'
 
 function App() {
   const path = window.location.pathname
@@ -21,6 +22,10 @@ function App() {
 
   if (path === '/mapaobjecoes') {
     return <MapaObjecoes />
+  }
+
+  if (path === '/instagram') {
+    return <SYSLEDInstagramSim />
   }
 
   return <SYSLEDLandingPage />
